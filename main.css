@@ -20,16 +20,21 @@ body {
 	
 
 .temperature, .location {
-	height: 30vh;
 	width: 50%;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-
+	flex-direction: column;
+	margin-top: 2em;
 }
 
-.temperature {
-	flex-direction: column;
+@media(min-width: 650px) {
+	.location {
+		flex-direction: row;
+	}
+	.temperature {
+		margin-top: 0;
+	}
 }
 
 .degree-section {
