@@ -13,9 +13,6 @@ window.addEventListener('load', () => {
 // req.onload = function(){
 // 	const weatherIcons = JSON.parse(req.responseText);
 	
-
-
-
 	if(navigator.geolocation){
 
 
@@ -23,20 +20,13 @@ window.addEventListener('load', () => {
 			lat = position.coords.latitude;
 			long = position.coords.longitude;
 
-		
-		
-
 		const proxy = 'https://cors-anywhere.herokuapp.com/';	
 		const api = `https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${long}&key=6450498818484b008e70dc92cde21971`;
 		
-
 		fetch(api)
 		.then(res => res.json())
 		.then(data => {
 			console.log(data);
-
-		
-		
 
 			const temp = data.data[0].temp;
 			const description = data.data[0].weather.description;
@@ -44,8 +34,8 @@ window.addEventListener('load', () => {
 			const icon = data.data[0].weather.description;
 			var result = icon.substr(icon.indexOf(" ") + 1);
 
-			//FORMULA for Celcius
-			// let celcius = (temp-32)*( 5 / 9);
+			//FORMULA for Farentheit
+			let farent = (temp*( 5 / 9))+32;
 
 			console.log(result);			
 
@@ -63,7 +53,7 @@ window.addEventListener('load', () => {
 
 		
 
-		 //Changethe background depending on daytime
+		 //Change the background depending on daytime
 		var time = new Date();
         time = time.getHours();
         var color =  "";
@@ -79,20 +69,19 @@ window.addEventListener('load', () => {
         
         document.querySelector('body').style.background = color;
 
-
 		     //Change to Celcius
-		// temperatureSection.addEventListener('click', ()=>{
+		temperatureSection.addEventListener('click', ()=>{
 			
 			
-		// 	if(temperatureSpan.textContent ==="F"){
-		// 		temperatureSpan.textContent ="C";
-		// 		temperatureDegree.textContent = Math.floor(celcius);
+			if(temperatureSpan.textContent ==="C"){
+				temperatureSpan.textContent ="F";
+				temperatureDegree.textContent = Math.floor(farent);
 
-		// 	} else {
-		// 		temperatureSpan.textContent = "F";
-		// 		temperatureDegree.textContent = temp;
-		// 	}
-		// });
+			} else {
+				temperatureSpan.textContent = "C";
+				temperatureDegree.textContent = temp;
+			}
+		});
 
 		  // function setIcons(icon, iconID){
 		  	const skycons = new Skycons({color: "white"});
@@ -134,15 +123,8 @@ window.addEventListener('load', () => {
 		  	skycons.add(docID, Skycons.CLOUDY);
 		  }
 
-
   	skycons.play();
 
-
-		
-
-
 		});
-		
 	})};
-
 });
