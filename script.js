@@ -7,14 +7,7 @@ window.addEventListener('load', () => {
 	const temperatureSection = document.querySelector('.temperature');
 	const temperatureSpan = document.querySelector('.temperature span');
 
-// const req = new XMLHttpRequest();
-// req.open('GET', 'https://gist.githubusercontent.com/tbranyen/62d974681dea8ee0caa1/raw/3405bfb2a76b7cbd90fde33d8536f0cd13706955/icons.json');
-// req.send();
-// req.onload = function(){
-// 	const weatherIcons = JSON.parse(req.responseText);
-	
 	if(navigator.geolocation){
-
 
 		navigator.geolocation.getCurrentPosition(position =>{
 			lat = position.coords.latitude;
@@ -26,7 +19,6 @@ window.addEventListener('load', () => {
 		fetch(api)
 		.then(res => res.json())
 		.then(data => {
-			console.log(data);
 
 			const temp = data.data[0].temp;
 			const description = data.data[0].weather.description;
@@ -35,23 +27,17 @@ window.addEventListener('load', () => {
 			var result = icon.substr(icon.indexOf(" ") + 1);
 
 			//FORMULA for Farentheit
-			let farent = (temp*( 5 / 9))+32;
-
-			console.log(result);			
+			let farent = (temp*( 5 / 9))+32;		
 
 			//Set DOM Elements
 			temperatureDegree.textContent = temp;
 			temperatureDescription.textContent = description;
 			locationTimezone.textContent = location;
-
 			
 			var iconcode = data.data[0].weather.icon;
 
 		   var iconurl = `https://www.weatherbit.io/static/img/icons/${iconcode}.png`;
 		   document.getElementById('wicon').setAttribute('src', iconurl);
-
-
-		
 
 		 //Change the background depending on daytime
 		var time = new Date();
@@ -106,10 +92,10 @@ window.addEventListener('load', () => {
 		  	case 'snow':
 		  	skycons.add(docID, Skycons.SNOW);
 		  	break;
-		  	//IF clear
+		  	//If clear
 		  	case 'sky':
 		  	if (time >=19 || time <=4) {
-		  		skycons.add(docID, Skycons.CEAR_NIGHT);
+		  		skycons.add(docID, Skycons.CLEAR_NIGHT);
 		  	} else {
 		  		skycons.add(docID, Skycons.CLEAR_DAY);
 		  	}
@@ -126,5 +112,7 @@ window.addEventListener('load', () => {
   	skycons.play();
 
 		});
+		
 	})};
+
 });
